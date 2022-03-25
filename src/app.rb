@@ -10,12 +10,8 @@ class App
 
     def start
         view = View::Ruby2DView.new
-
         Thread.new { init_timer(view) }
-
-        view.start(@state)
-
-        
+        view.start(@state)        
     end
 
     def init_timer(view)
@@ -24,8 +20,7 @@ class App
             view.render(@state)
             sleep 0.5
         end  
-    end
-
+    end 
 end
 
 app = App.new
