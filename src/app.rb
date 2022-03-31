@@ -9,8 +9,8 @@ class App
     end
 
     def start
-        view = View::Ruby2DView.new
-        Thread.new { init_timer(view) }
+        @view = View::Ruby2DView.new(self)
+        Thread.new { init_timer(@view) } 
         view.start(@state)        
     end
 
@@ -21,6 +21,14 @@ class App
             sleep 0.5
         end  
     end 
+
+    def send_action(action, params) 
+        new_state = Actions.send(action, @state, params)
+        if new_state.hash != @state
+            @state = new_state
+            @view.render(@state)
+        end
+    end
 end
 
 app = App.new
